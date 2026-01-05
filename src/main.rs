@@ -14,18 +14,16 @@ use roots::*;
 use solver::*;
 use transformer::*;
 
-use std::process;
-
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Do you wish to break after each answer[yes/no]?:");
     let brake = readvar();
 
-    let _operation = loop {
+    'program_loop: loop {
         print_modes(); //display modes to screen
         let exit = readvar();
 
         if exit.trim() == "exit" || exit.trim() == "0" {
-            break 0;
+            break;
         } else if exit.trim() == "1" {
             println!("Mode:1-[Third degree equation solver]");
 
@@ -90,7 +88,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     delta, posroot, negroot, a, b, c
                 );
                 if brake.trim() == "yes" {
-                    break 0;
+                    break;
                 }
             } else if calcfrac.trim() == "no" {
                 let posroot = algebra::secdeg_posroot(a, b, &delta, false);
@@ -105,7 +103,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     delta, posroot, negroot, a, b, c
                 );
                 if brake.trim() == "yes" {
-                    break 0;
+                    break;
                 }
             }
         } else if exit.trim() == "3" {
@@ -132,7 +130,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 deltax, deltay, delta, calcx, calcy, a_1, b_1, a_2, b_2, c_1, c_2,
             );
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "4" {
             print_modes_secondary();
@@ -156,7 +154,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 );
 
                 if brake.trim() == "yes" {
-                    break 0;
+                    break;
                 }
             } else if choice.trim() == "2" {
                 println!("Insert the radius of the circle? :");
@@ -171,7 +169,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 );
 
                 if brake.trim() == "yes" {
-                    break 0;
+                    break;
                 }
             } else if choice.trim() == "3" {
                 println!("What is the width of the rectangle? :");
@@ -193,7 +191,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 );
 
                 if brake.trim() == "yes" {
-                    break 0;
+                    break;
                 }
             } else if choice.trim() == "4" {
                 println!("[4-4] Mode:Área of right angled triangle");
@@ -268,7 +266,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             println!("[{}]+[{}]={}", x.clone(), y.clone(), add(x, y));
 
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "6" {
             println!("Select the value of x:");
@@ -279,7 +277,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             println!("[{}]-[{}]={}", x.clone(), y.clone(), subtract(x, y));
 
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "7" {
             println!("Select the value of x:");
@@ -289,7 +287,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             multiply(x, y);
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "8" {
             println!("Select the value of x:");
@@ -299,7 +297,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             divide(x, y);
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "9" {
             println!("Select the value of x:");
@@ -310,7 +308,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             floordivide(x, y);
 
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "10" {
             println!("Select the value of x:");
@@ -321,7 +319,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             println!("[{}]**[{}]={}", x.clone(), r.clone(), power(x, r));
 
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "11" {
             println!("[11] Mode:Radians to degrees");
@@ -332,7 +330,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let res = radtodeg(rad.clone())?;
             println!("{} rad -> {} degrees", rad.trim(), res);
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         } else if exit.trim() == "12" {
             println!("[12] Mode:Degrees to radians");
@@ -355,13 +353,13 @@ fn main() -> Result<(), Box<dyn Error>> {
         } else if exit.trim() == "13" {
             println!("[12] Mode:Functions");
 
-            let _funcloop: u8 = loop {
+            loop {
                 print_objective();
 
                 let funcchoice = readvar();
 
                 if funcchoice.trim() == "1" {
-                    break 0;
+                    break;
                 } else if funcchoice.trim() == "2" {
                     println!("Enter value of m:");
                     let mval: f64 = readvar().trim().parse::<f64>()?;
@@ -384,7 +382,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     );
                     println!("Values of y:{:#?}", valsy);
                     if brake.trim() == "yes" {
-                        process::exit(0);
+                        break 'program_loop;
                     }
                 } else if funcchoice.trim() == "3" {
                     let mut valsx: Vec<String> = Vec::new();
@@ -420,16 +418,16 @@ fn main() -> Result<(), Box<dyn Error>> {
                     );
                     println!("Values of y as x varies:{:#?}", valsx);
                     if brake.trim() == "yes" {
-                        break 0;
+                        break;
                     }
                 }
-            };
+            }
         } else {
             println!("Invalid choice");
             if brake.trim() == "yes" {
-                break 0;
+                break;
             }
         }
-    };
+    }
     Ok(())
 }
