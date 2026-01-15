@@ -20,7 +20,16 @@ cargo run
 ```
 
 ## Summary of the commands:
+```bash
 
+sudo apt update
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+git clone https://github.com/Physiccode/calculator.git
+cd calculator
+cargo build
+cargo run
+
+```
 ## Future improvements
 - Better error-handling
 - Better equation solving skill
