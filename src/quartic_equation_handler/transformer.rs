@@ -1,3 +1,5 @@
+use crate::cubic_equation_handler::transformer;
+
 pub struct Quartic {
     pub a:f64,
     pub b:f64,
@@ -32,5 +34,7 @@ fn normalize(any:&Quartic) -> NormalizedQuartic {
 
 pub trait DepressedFormulas {
     fn p(&self)->f64;
-    fn r(&self)->f64
+    fn r(&self)->f64;
+    fn q(&self)->f64;
+    fn ferrarris_cubic(&self)->transformer::Cubiceqn;
 }
