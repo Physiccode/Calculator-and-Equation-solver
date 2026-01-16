@@ -1,7 +1,36 @@
 pub struct Quartic {
-    a:f64,
-    b:f64,
-    c:f64,
-    d:f64,
-    e:f64
+    pub a:f64,
+    pub b:f64,
+    pub c:f64,
+    pub d:f64,
+    pub e:f64
+}
+
+pub struct NormalizedQuartic { // A = 1
+    pub b:f64,
+    pub c:f64,
+    pub d:f64,
+    pub e:f64
+}
+//normalizing:
+fn normalize(any:&Quartic) -> NormalizedQuartic {
+    if any.a != 1.0 {
+        NormalizedQuartic{
+            b:any.b/any.a,
+            c:any.c/any.a,
+            d:any.d/any.a,
+            e:any.e/any.a
+        }
+    }
+    NormalizedQuartic {
+        b:any.b,
+        c:any.c,
+        d:any.c,
+        e:any.e
+    }
+}
+
+pub trait DepressedFormulas {
+    fn p(&self)->f64;
+    fn r(&self)->f64
 }
