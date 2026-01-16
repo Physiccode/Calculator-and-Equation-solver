@@ -17,17 +17,29 @@ impl Solve for Quadratic {
     }
 
     fn roots(&self) -> (Result<roots::Root,String>,Result<roots::Root,String>) {
+        let discriminant = self.discriminant();
         if determinant >= 0 {
             let first_term = -self.b/2.0*self.a;
-            let sum = (self.b.powi(2)-4*self.a*self.c)/2*self.a;
-            let r_1 = roots::Root::real(first_term + sum);
-            let r_2 = roots::Root::real(first_term - sum);
+            let sum = discriminant.sqrt()/2*self.a;
+            let r_1 = roots::Root::Real(first_term + sum);
+            let r_2 = roots::Root::Real(first_term - sum);
             (Ok(r_1),Ok(r_2)
         }
         else {
             if self.a != 0 {
-
+                let first_term = -self.b/2.0*self.a;
+                let sum = discriminant.abs().sqrt()/2*self.a;
+                let r_1 = roots::Root::Complex{
+                    re:first_term,
+                    im:sum
+                }
+                let r_2 = roots::Root::Complex {
+                    re: first_term,
+                    im: -sum
+                }
+                (Ok(r_1),Ok(r_2))
             }
+            Err("value of a can't be 0")
         }
 
     }
