@@ -66,4 +66,10 @@ impl DepressedFormulas for NormalizedQuartic {
         let degree_1_coefficient = -r;
         let degree_0_coefficient = (p*r/2.0)-(q.powi(2)/8.0);
     }
+    transformer::Cubiceqn {
+    a:1.0,
+    b:degree_2_coefficient,
+    c:degree_1_coefficient,
+    d:degree_0_coefficient
+}
 }
