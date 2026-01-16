@@ -38,3 +38,9 @@ pub trait DepressedFormulas {
     fn q(&self)->f64;
     fn ferrarris_cubic(&self)->transformer::Cubiceqn;
 }
+
+impl DepressedFormulas for NormalizedQuartic {
+    fn p(&self)->f64 {
+
+    }
+}
