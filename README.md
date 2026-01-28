@@ -1,6 +1,5 @@
-# CLI calculator and equation solver
+# CLI calculator and equation solver 🖥️
 
-## About
 A command-line calculator made with the Rust programming language,it supports second degree equation solving,third degree equation solving,both with complex or real roots,basic arithmetic and more.
 
 ## How to Install & Run?
@@ -19,7 +18,7 @@ cargo build
 cargo run
 ```
 
-## Summary of the commands:
+## Summary of the commands📕
 ```bash
 
 sudo apt update
