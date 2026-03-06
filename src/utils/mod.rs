@@ -1,4 +1,5 @@
 pub mod algebra;
-pub mod trig;
+pub mod complexop;
 pub mod geometry;
 pub mod miscellaneous;
+pub mod trig;

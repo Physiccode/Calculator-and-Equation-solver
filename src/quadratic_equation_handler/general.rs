@@ -1,4 +1,5 @@
 use crate::cubic_equation_handler::roots; //call real or complex roots enum
+use crate::utils::complexop;
 
 pub struct BiquadraticDegree4 {
     a: f64,
@@ -103,17 +104,20 @@ impl SolveBiquadratic for BiquadraticDegree4 {
             return (Ok(r_1), Ok(r_2), Ok(r_3), Ok(r_4));
         } else {
             if self.a != 0 {
-                let first_term = -self.b / 2.0 * self.a;
-                let sum = discriminant.abs().sqrt() / 2 * self.a;
-                let r_1 = roots::Root::Complex {
-                    re: first_term,
-                    im: sum,
+                let real_part = -(self.b / 2.0 * self.a);
+                let imaginary_part = (discriminant.abs().sqrt()) / (2.0 * self.a); //this part is the coefficient of i
+                //now we have the squared roots,time to take the squareroot of them
+                r_1_squared = roots::Root::Complex {
+                    re: real_part,
+                    im: imaginary_part,
                 };
-                let r_2 = roots::Root::Complex {
-                    re: first_term,
-                    im: -sum,
+                r_2_squared = roots::Root::Complex {
+                    re: real_part,
+                    im: -imaginary_part,
                 };
-                (Ok(r_1), Ok(r_2))
+                let (r_1, r_2) = r_1_squared.cmplxsqrt();
+                let (r_3, r_4) = r_2_squared.cmplxsqrt();
+                return (Ok(r_1), Ok(r_2), Ok(r_3), Ok(r_4));
             }
             Err("value of a can't be 0")
         }
