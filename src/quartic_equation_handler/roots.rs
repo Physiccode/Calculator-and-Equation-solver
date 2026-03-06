@@ -1,7 +1,4 @@
-/*use crate::quartic_equation_hander::transformer;
-use crate::cubic_equation_handler::{self,roots};
-use crate::quadratic_equation_handler::general;
+use crate::cubic_equation_handler::transformer;
+use crate::quartic_equation_handler;
 
-//get parameter z:
-
-fn get_real_root(any:&cubicequation_handler); */
+fn get_real_root(any: &cubicequation_handler);
