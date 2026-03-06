@@ -31,8 +31,6 @@ cargo run
 
 ```
 ## Future improvements
-- Better error-handling
-- Better equation solving skill
-- Third degree equation resolution
+- Product and sum of roots
 - 3 variables system of equations resolution
 - Calculus support
