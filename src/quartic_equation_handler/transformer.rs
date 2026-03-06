@@ -77,7 +77,7 @@ impl DepressedFormulas for NormalizedQuartic {
             }
         } else {
             //if it is biquadratic
-            general::Quadratic {}
+            general::BiquadraticDegree4 { a: 1.0, b: p, c: r }
         }
     }
 }

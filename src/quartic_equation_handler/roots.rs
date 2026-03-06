@@ -1,4 +1,4 @@
-use crate::cubic_equation_handler::transformer;
+use crate::cubic_equation_handler::roots;
 use crate::quadratic_equation_handler::general;
 use crate::quartic_equation_handler; //transformer //get the quadratic equation structure
 
@@ -17,5 +17,37 @@ pub fn get_v(q: f64, u: f64) -> Result<f64, String> {
     }
 }
 
-pub fn form_first_quadratic(u: f64, z: f64, v: f64) -> general::Quadratic { //depressed quadratic factors
+pub fn quadratics(u: f64, z: f64, v: f64) -> (general::Quadratic, general::Quadratic) {
+    //depressed quadratic factors
+    let first_quadratic = general::Quadratic {
+        a: 1.0,
+        b: u,
+        c: z - v,
+    };
+
+    let second_quadratic = general::Quadratic {
+        a: 1.0,
+        b: -u,
+        c: z + v,
+    };
+
+    return (first_quadratic, second_quadratic);
+}
+
+pub fn get_back_x(y: roots::Root, b: f64) -> roots::Root {
+    //b is the coefficient of the third degree element from the normalized quartic
+    match y {
+        roots::Root::Real(yroot) => {
+            let x = y - (b / 4.0);
+            return x;
+        }
+        roots::Root::Complex { re, im } => {
+            let im = imaginary;
+            let real = re - b / 4.0;
+            let x = roots::Root::Complex {
+                re: real,
+                im: imaginary,
+            };
+        }
+    }
 }
