@@ -1,3 +1,4 @@
+use colored::*;
 use std::error::Error;
 
 mod cubic_equation_handler;
