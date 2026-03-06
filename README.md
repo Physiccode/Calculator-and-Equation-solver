@@ -32,5 +32,8 @@ cargo run
 ```
 ## Future improvements
 - Product and sum of roots
+- GUI and graphing support
+- Inequalities support
+- Full CAS system
 - 3 variables system of equations resolution
 - Calculus support
