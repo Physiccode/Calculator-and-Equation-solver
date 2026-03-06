@@ -1,5 +1,5 @@
 use crate::cubic_equation_handler::transformer;
-
+use crate::quadratic_equation_handler::general;
 pub struct Quartic {
     pub a: f64,
     pub b: f64,
@@ -15,6 +15,7 @@ pub struct NormalizedQuartic {
     pub d: f64,
     pub e: f64,
 }
+
 //normalizing:
 fn normalize(any: &Quartic) -> NormalizedQuartic {
     if any.a != 1.0 {
@@ -37,7 +38,7 @@ pub trait DepressedFormulas {
     fn p(&self) -> f64;
     fn r(&self) -> f64;
     fn q(&self) -> f64;
-    fn ferrarris_cubic(&self) -> transformer::Cubiceqn;
+    fn ferrarris_cubic_or_biquadratic(&self) -> transformer::Cubiceqn;
 }
 
 impl DepressedFormulas for NormalizedQuartic {
@@ -59,18 +60,24 @@ impl DepressedFormulas for NormalizedQuartic {
         self.d - second_term + third_term
     }
 
-    fn ferraris_cubic(&self) {
+    fn ferraris_cubic_or_biquadratic(&self) {
         let p = self.p();
         let q = self.q();
         let r = self.r();
-        let degree_2_coefficient = -(p / 2.0);
-        let degree_1_coefficient = -r;
-        let degree_0_coefficient = (p * r / 2.0) - (q.powi(2) / 8.0);
-        cubic_equation_handler::transformer {
-            a: 1.0,
-            b: degree_2_coefficient,
-            c: degree_1_coefficient,
-            d: degree_0_coefficient,
+        if q != 0.0 {
+            //if the  depressed quartic equation isn't biquadratic
+            let degree_2_coefficient = -(p / 2.0);
+            let degree_1_coefficient = -r;
+            let degree_0_coefficient = (p * r / 2.0) - (q.powi(2) / 8.0);
+            cubic_equation_handler::transformer {
+                a: 1.0,
+                b: degree_2_coefficient,
+                c: degree_1_coefficient,
+                d: degree_0_coefficient,
+            }
+        } else {
+            //if it is biquadratic
+            general::Quadratic {}
         }
     }
 }

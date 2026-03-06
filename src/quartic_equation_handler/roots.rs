@@ -11,4 +11,11 @@ pub fn get_u(z: f64, p: f64) -> f64 {
 }
 
 //get_v depends on the value of u,which is obtained after running get_u()
-pub fn get_v(q: f64, u: f64) -> f64 {}
+pub fn get_v(q: f64, u: f64) -> Result<f64, String> {
+    if u != 0.0 {
+        Ok(q / (2.0 * u))
+    }
+}
+
+pub fn form_first_quadratic(u: f64, z: f64, v: f64) -> general::Quadratic { //depressed quadratic factors
+}
