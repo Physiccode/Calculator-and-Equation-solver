@@ -1,5 +1,10 @@
-use crate::cubic_equation_handler::transformer;
+use crate::cubic_equation_handler::{self, transformer};
 use crate::quadratic_equation_handler::general;
+
+enum Equations {
+    Cubic(transformer::Cubiceqn),
+    Biquadratic(general::BiquadraticDegree4),
+}
 pub struct Quartic {
     pub a: f64,
     pub b: f64,
@@ -20,20 +25,20 @@ pub trait Normalize {
 }
 
 impl Normalize for Quartic {
-    fn normalize(any: &Quartic) -> NormalizedQuartic {
-        if any.a != 1.0 {
+    fn normalize(&self) -> NormalizedQuartic {
+        if self.a != 1.0 {
             NormalizedQuartic {
-                b: any.b / any.a,
-                c: any.c / any.a,
-                d: any.d / any.a,
-                e: any.e / any.a,
+                b: self.b / self.a,
+                c: self.c / self.a,
+                d: self.d / self.a,
+                e: self.e / self.a,
             }
         } else {
             NormalizedQuartic {
-                b: any.b,
-                c: any.c,
-                d: any.c,
-                e: any.e,
+                b: self.b,
+                c: self.c,
+                d: self.c,
+                e: self.e,
             }
         }
     }
@@ -44,7 +49,7 @@ pub trait DepressedFormulas {
     fn p(&self) -> f64;
     fn r(&self) -> f64;
     fn q(&self) -> f64;
-    fn ferraris_cubic_or_biquadratic(&self) -> transformer::Cubiceqn;
+    fn ferraris_cubic_or_biquadratic(&self) -> Equations;
 }
 
 impl DepressedFormulas for NormalizedQuartic {
@@ -66,7 +71,7 @@ impl DepressedFormulas for NormalizedQuartic {
         self.d - second_term + third_term
     }
 
-    fn ferraris_cubic_or_biquadratic(&self) -> transformer::Cubiceqn {
+    fn ferraris_cubic_or_biquadratic(&self) -> Equations {
         let p = self.p();
         let q = self.q();
         let r = self.r();
@@ -75,15 +80,15 @@ impl DepressedFormulas for NormalizedQuartic {
             let degree_2_coefficient = -(p / 2.0);
             let degree_1_coefficient = -r;
             let degree_0_coefficient = (p * r / 2.0) - (q.powi(2) / 8.0);
-            cubic_equation_handler::transformer {
+            Equations::Cubic(transformer::Cubiceqn {
                 a: 1.0,
                 b: degree_2_coefficient,
                 c: degree_1_coefficient,
                 d: degree_0_coefficient,
-            }
+            })
         } else {
             //if it is biquadratic
-            general::BiquadraticDegree4 { a: 1.0, b: p, c: r }
+            Equations::Biquadratic(general::BiquadraticDegree4 { a: 1.0, b: p, c: r })
         }
     }
 }

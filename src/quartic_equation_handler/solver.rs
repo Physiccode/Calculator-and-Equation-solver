@@ -1,12 +1,13 @@
 use crate::cubic_equation_handler::{roots::Root, solver::Solve, transformer::Cubiceqn};
-use crate::quadratic_equation_handler::general::BiquadraticDegree4;
+use crate::quadratic_equation_handler::{self, general::BiquadraticDegree4};
 use crate::quartic_equation_handler::{
-    self, roots,
-    solver::{self, QuarticRoots},
-    transformer::{self, Normalize},
+    self,
+    roots::{self, QuarticRoots},
+    solver,
+    transformer::{self, DepressedFormulas, Normalize},
 }; //self for callingroots
 
-pub trait Solve {
+pub trait SolveQuartic {
     fn roots(&self) -> QuarticRoots;
 
     fn x1(&self) -> Root;
@@ -15,7 +16,7 @@ pub trait Solve {
     fn x4(&self) -> Root;
 }
 
-impl Solve for transformer::Quartic {
+impl SolveQuartic for transformer::Quartic {
     fn roots(&self) -> QuarticRoots {
         //normalize
         let q = self.q(); //initialize q
@@ -26,12 +27,12 @@ impl Solve for transformer::Quartic {
         match ferraris_cubic_or_biquadratic {
             Cubiceqn { a, b, c, d } => {
                 //if it is a cubic equation,then its the ferrari's cubic,we'll solve it the traditional way
-                let real_root = Root;
+                let real_root;
                 //step 1:get the roots,lets call them z1,z2 and z3
                 let (z_1, z_2, z_3) = ferraris_cubic_or_biquadratic.roots();
                 //step 2,look for a real root
                 for root in [z_1, z_2, z_3] {
-                    while True {
+                    loop {
                         match root {
                             Root::Real(content) => {
                                 real_root = content;
