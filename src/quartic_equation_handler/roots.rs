@@ -43,7 +43,7 @@ pub fn quadratics(u: &f64, z: &f64, v: &f64) -> (general::Quadratic, general::Qu
     return (first_quadratic, second_quadratic);
 }
 
-pub fn get_back_x(y: roots::Root, b: f64) -> roots::Root {
+pub fn get_back_x(y: roots::Root, b: &f64) -> roots::Root {
     //b is the coefficient of the third degree element from the normalized quartic
     match y {
         roots::Root::Real(yroot) => {

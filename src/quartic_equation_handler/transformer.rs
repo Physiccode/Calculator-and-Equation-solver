@@ -28,12 +28,13 @@ impl Normalize for Quartic {
                 d: any.d / any.a,
                 e: any.e / any.a,
             }
-        }
-        NormalizedQuartic {
-            b: any.b,
-            c: any.c,
-            d: any.c,
-            e: any.e,
+        } else {
+            NormalizedQuartic {
+                b: any.b,
+                c: any.c,
+                d: any.c,
+                e: any.e,
+            }
         }
     }
 }
@@ -43,7 +44,7 @@ pub trait DepressedFormulas {
     fn p(&self) -> f64;
     fn r(&self) -> f64;
     fn q(&self) -> f64;
-    fn ferrarris_cubic_or_biquadratic(&self) -> transformer::Cubiceqn;
+    fn ferraris_cubic_or_biquadratic(&self) -> transformer::Cubiceqn;
 }
 
 impl DepressedFormulas for NormalizedQuartic {
@@ -65,7 +66,7 @@ impl DepressedFormulas for NormalizedQuartic {
         self.d - second_term + third_term
     }
 
-    fn ferraris_cubic_or_biquadratic(&self) {
+    fn ferraris_cubic_or_biquadratic(&self) -> transformer::Cubiceqn {
         let p = self.p();
         let q = self.q();
         let r = self.r();

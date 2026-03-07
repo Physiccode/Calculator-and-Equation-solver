@@ -3,7 +3,7 @@ use crate::quadratic_equation_handler::general::BiquadraticDegree4;
 use crate::quartic_equation_handler::{
     self, roots,
     solver::{self, QuarticRoots},
-    transformer,
+    transformer::{self, Normalize},
 }; //self for callingroots
 
 pub trait Solve {
@@ -44,7 +44,7 @@ impl Solve for transformer::Quartic {
 
                 //step 3:get u and v to form the 2 auxilliary quadratics
                 let u = roots::get_u(&real_root, &p);
-                let v = roots::get_v(&u, &q);
+                let v = roots::get_v(&u, &q)?;
                 let (depressed_quadratic_1, depressed_quadratic_2) =
                     roots::quadratics(&u, &real_root, &v);
 
@@ -53,10 +53,10 @@ impl Solve for transformer::Quartic {
                 let (y_3, y_4) = depressed_quadratic_2.roots()?;
 
                 //step 5:solve for the roots of the original equations
-                let x_1 = roots::get_back_x(y_1, b);
-                let x_2 = roots::get_back_x(y_2, b);
-                let x_3 = roots::get_back_x(y_3, b);
-                let x_4 = roots::get_back_x(y_4, b);
+                let x_1 = roots::get_back_x(y_1, &b);
+                let x_2 = roots::get_back_x(y_2, &b);
+                let x_3 = roots::get_back_x(y_3, &b);
+                let x_4 = roots::get_back_x(y_4, &b);
                 QuarticRoots { x_1, x_2, x_3, x_4 }
             }
 
@@ -65,12 +65,25 @@ impl Solve for transformer::Quartic {
                 let (y_1, y_2, y_3, y_4) = self.roots();
 
                 //get back x:
-                let x_1 = roots::get_back_x(y_1);
-                let x_2 = roots::get_back_x(y_2);
-                let x_3 = roots::get_back_x(y_3);
-                let x_4 = roots::get_back_x(y_4);
+                let x_1 = roots::get_back_x(y_1, &b);
+                let x_2 = roots::get_back_x(y_2, &b);
+                let x_3 = roots::get_back_x(y_3, &b);
+                let x_4 = roots::get_back_x(y_4, &b);
                 QuarticRoots { x_1, x_2, x_3, x_4 }
             }
         }
+    }
+
+    fn x1(&self) -> Root {
+        return self.roots().x_1;
+    }
+    fn x2(&self) -> Root {
+        return self.roots().x_2;
+    }
+    fn x3(&self) -> Root {
+        return self.roots().x_3;
+    }
+    fn x4(&self) -> Root {
+        return self.roots().x_4;
     }
 }

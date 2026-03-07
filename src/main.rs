@@ -3,6 +3,7 @@ use std::error::Error;
 mod cubic_equation_handler; //Load the cubic equation handler folder
 mod quartic_equation_handler;
 mod utils; //Load my utils folder
+mod quadratic_equation_handler;
 
 use algebra::*;
 use geometry::*;
@@ -15,8 +16,6 @@ use roots::*;
 use solver::*;
 use transformer::*;
 
-use quartic_equation_handler{roots,solver,transformer};
-
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Do you wish to break after each answer[yes/no]?:");
     let brake = readvar();
@@ -27,8 +26,12 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         if exit.trim() == "exit" || exit.trim() == "0" {
             break;
-        } else if exit.trim() == "1" {
-            println!("Mode:1-[Third degree equation solver]");
+        }
+        else if exit.trim() == "1" {
+            println!("Mode:1 - [Fourth degree equation solver]");
+        }
+        else if exit.trim() == "2" {
+            println!("Mode:2-[Third degree equation solver]");
 
             println!("Enter the value of a:");
             let a: f64 = readvar().trim().parse::<f64>()?;
@@ -63,8 +66,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 discriminant,
                 angle
             );
-        } else if exit.trim() == "2" {
-            println!("Mode:2-[Second degree equation solver]");
+        } else if exit.trim() == "3" {
+            println!("Mode:3-[Second degree equation solver]");
 
             println!("Whats the value of a in ax^2 :");
             let a: f64 = readvar().trim().parse::<f64>()?;
@@ -109,7 +112,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                     break;
                 }
             }
-        } else if exit.trim() == "3" {
+        } else if exit.trim() == "4" {
+            println!("Mode 4:system of equation solver")
             println!("a_1 as in a1x:");
             let a_1: f64 = readvar().trim().parse::<f64>()?;
             println!("a_2 as in a2x:");
@@ -135,7 +139,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "4" {
+        } else if exit.trim() == "5" {
             print_modes_secondary();
             let choice = readvar();
 
@@ -260,7 +264,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
 
             //choices outside choice 4
-        } else if exit.trim() == "5" {
+        } else if exit.trim() == "6" {
             println!("Select the value of x:");
             let x = readvar().trim().parse::<f64>()?;
             println!("Select the value of y:");
@@ -271,7 +275,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "6" {
+        } else if exit.trim() == "7" {
             println!("Select the value of x:");
             let x = readvar().trim().parse::<f64>()?;
             println!("Select the value of y:");
@@ -282,7 +286,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "7" {
+        } else if exit.trim() == "8" {
             println!("Select the value of x:");
             let x: f64 = readvar().trim().parse::<f64>()?;
             println!("Select the value of y:");
@@ -292,7 +296,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "8" {
+        } else if exit.trim() == "9" {
             println!("Select the value of x:");
             let x: f64 = readvar().trim().parse::<f64>()?;
             println!("Select the value of y:");
@@ -302,7 +306,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "9" {
+        } else if exit.trim() == "10" {
             println!("Select the value of x:");
             let x: f64 = readvar().trim().parse::<f64>()?;
             println!("Select the value of y:");
@@ -313,7 +317,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "10" {
+        } else if exit.trim() == "11" {
             println!("Select the value of x:");
             let x: f64 = readvar().trim().parse::<f64>()?;
             println!("Select the value of r:");
@@ -324,7 +328,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "11" {
+        } else if exit.trim() == "12" {
             println!("[11] Mode:Radians to degrees");
             println!(
                 "How many radians do you wish to convert to degrees? enter them in the form of '2pi/3' :"
@@ -335,7 +339,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             if brake.trim() == "yes" {
                 break;
             }
-        } else if exit.trim() == "12" {
+        } else if exit.trim() == "13" {
             println!("[12] Mode:Degrees to radians");
 
             println!(
@@ -353,7 +357,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 let rad = degreestorad(&deg, false);
                 println!("[{}] degrees-->[{}] radians", deg, rad);
             }
-        } else if exit.trim() == "13" {
+        } else if exit.trim() == "14" {
             println!("[12] Mode:Functions");
 
             loop {
