@@ -1,6 +1,5 @@
 use crate::cubic_equation_handler::roots::Root;
-use crate::quadratic_equation_handler::general;
-use crate::quartic_equation_handler; //transformer //get the quadratic equation structure
+use crate::quadratic_equation_handler::general; //get the quadratic equation structure
 
 pub struct QuarticRoots {
     pub x_1: Root,
@@ -13,7 +12,7 @@ pub struct QuarticRoots {
 the roots in y and in x,the code bellow  will show how */
 
 pub fn get_u(z: &f64, p: &f64) -> f64 {
-    let first_term = (2 * z);
+    let first_term = (2.0 * z);
     return (first_term - p).sqrt();
 }
 
@@ -30,7 +29,7 @@ pub fn quadratics(u: &f64, z: &f64, v: &f64) -> (general::Quadratic, general::Qu
     //depressed quadratic factors
     let first_quadratic = general::Quadratic {
         a: 1.0,
-        b: u,
+        b: *u,
         c: z - v,
     };
 
@@ -43,20 +42,21 @@ pub fn quadratics(u: &f64, z: &f64, v: &f64) -> (general::Quadratic, general::Qu
     return (first_quadratic, second_quadratic);
 }
 
-pub fn get_back_x(y: roots::Root, b: &f64) -> roots::Root {
+pub fn get_back_x(y: Root, b: &f64) -> Root {
     //b is the coefficient of the third degree element from the normalized quartic
     match y {
-        roots::Root::Real(yroot) => {
-            let x = y - (b / 4.0);
+        Root::Real(yroot) => {
+            let x = Root::Real(yroot - (b / 4.0));
             return x;
         }
-        roots::Root::Complex { re, im } => {
-            let im = imaginary;
+        Root::Complex { re, im } => {
+            let imaginary = im;
             let real = re - b / 4.0;
-            let x = roots::Root::Complex {
+            let x = Root::Complex {
                 re: real,
                 im: imaginary,
             };
+            return x;
         }
     }
 }
