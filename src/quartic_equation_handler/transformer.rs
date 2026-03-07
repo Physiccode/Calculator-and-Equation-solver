@@ -15,24 +15,29 @@ pub struct NormalizedQuartic {
     pub d: f64,
     pub e: f64,
 }
+pub trait Normalize {
+    fn normalize(&self) -> NormalizedQuartic;
+}
 
-//normalizing:
-fn normalize(any: &Quartic) -> NormalizedQuartic {
-    if any.a != 1.0 {
+impl Normalize for Quartic {
+    fn normalize(any: &Quartic) -> NormalizedQuartic {
+        if any.a != 1.0 {
+            NormalizedQuartic {
+                b: any.b / any.a,
+                c: any.c / any.a,
+                d: any.d / any.a,
+                e: any.e / any.a,
+            }
+        }
         NormalizedQuartic {
-            b: any.b / any.a,
-            c: any.c / any.a,
-            d: any.d / any.a,
-            e: any.e / any.a,
+            b: any.b,
+            c: any.c,
+            d: any.c,
+            e: any.e,
         }
     }
-    NormalizedQuartic {
-        b: any.b,
-        c: any.c,
-        d: any.c,
-        e: any.e,
-    }
 }
+//normalizing:
 
 pub trait DepressedFormulas {
     fn p(&self) -> f64;
