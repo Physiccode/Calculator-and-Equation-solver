@@ -1,8 +1,8 @@
-use colored::*;
 use std::error::Error;
 
-mod cubic_equation_handler;
-mod utils; //Load my utils folder //Load the cubic equation handler folder
+mod cubic_equation_handler; //Load the cubic equation handler folder
+mod quartic_equation_handler;
+mod utils; //Load my utils folder
 
 use algebra::*;
 use geometry::*;
@@ -14,6 +14,8 @@ use cubic_equation_handler::{roots, solver, transformer};
 use roots::*;
 use solver::*;
 use transformer::*;
+
+use quartic_equation_handler{roots,solver,transformer};
 
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Do you wish to break after each answer[yes/no]?:");
