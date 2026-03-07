@@ -1,4 +1,4 @@
-use crate::cubic_equation_handler::roots;
+use crate::cubic_equation_handler::roots::Root;
 use crate::quadratic_equation_handler::general;
 use crate::quartic_equation_handler; //transformer //get the quadratic equation structure
 
@@ -50,4 +50,17 @@ pub fn get_back_x(y: roots::Root, b: f64) -> roots::Root {
             };
         }
     }
+}
+
+pub struct DepressedRoots {
+    y_1: Root,
+    y_2: Root,
+    y_3: Root,
+    y_4: Root,
+}
+pub struct QuarticRoots {
+    x_1: Root,
+    x_2: Root,
+    x_3: Root,
+    x_4: Root,
 }
