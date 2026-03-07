@@ -2,14 +2,14 @@ use crate::cubic_equation_handler::roots; //call real or complex roots enum
 use crate::utils::complexop;
 
 pub struct BiquadraticDegree4 {
-    a: f64,
-    b: f64,
-    c: f64,
+    pub a: f64,
+    pub b: f64,
+    pub c: f64,
 }
 pub struct Quadratic {
-    a: f64,
-    b: f64,
-    c: f64,
+    pub a: f64,
+    pub b: f64,
+    pub c: f64,
 }
 
 pub trait Solve {
