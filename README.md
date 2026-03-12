@@ -1,6 +1,6 @@
 # CLI calculator and equation solver 🖥️
 
-A command-line calculator made with the Rust programming language,it supports second degree equation solving,third degree equation solving,both with complex or real roots,basic arithmetic and more.
+A command-line calculator made with the Rust programming language,it supports second degree equation solving,third degree equation solving,both with complex or real roots,basic arithmetic and more.Run the program to view the full menu.
 
 ## How to Install & Run?
 - [Install the rust compiler from the website](https://www.rust-lang.org/tools/install) or manually:
