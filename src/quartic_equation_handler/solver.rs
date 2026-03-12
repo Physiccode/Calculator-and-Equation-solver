@@ -25,7 +25,7 @@ impl SolveQuartic for transformer::Quartic {
         let b = &normalized_quartic.b;
         let ferraris_cubic_or_biquadratic = normalized_quartic.ferrarris_cubic_or_biquadratic();
         match ferraris_cubic_or_biquadratic {
-            Cubiceqn { a, b, c, d } => {
+            Equations::Cubic(Cubiceqn { a, b, c, d }) => {
                 //if it is a cubic equation,then its the ferrari's cubic,we'll solve it the traditional way
                 let real_root;
                 //step 1:get the roots,lets call them z1,z2 and z3
@@ -61,9 +61,9 @@ impl SolveQuartic for transformer::Quartic {
                 QuarticRoots { x_1, x_2, x_3, x_4 }
             }
 
-            BiquadraticDegree4 { a, b, c } => {
+            Equations::Biquadratic(BiquadraticDegree4 { a, b, c }) => {
                 //solve for the biquadratic depressed roots
-                let (y_1, y_2, y_3, y_4) = self.roots();
+                let (y_1, y_2, y_3, y_4) = self.biroots();
 
                 //get back x:
                 let x_1 = roots::get_back_x(y_1, &b);

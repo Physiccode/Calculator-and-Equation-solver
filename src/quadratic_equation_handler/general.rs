@@ -53,7 +53,7 @@ impl Solve for Quadratic {
 
 pub trait SolveBiquadratic {
     fn discriminant(&self) -> f64;
-    fn roots(&self) -> Result<(Root, Root, Root, Root), String>;
+    fn biroots(&self) -> Result<(Root, Root, Root, Root), String>;
 }
 
 impl SolveBiquadratic for BiquadraticDegree4 {
@@ -62,7 +62,7 @@ impl SolveBiquadratic for BiquadraticDegree4 {
         self.b.powi(2) + second_term
     }
 
-    fn roots(&self) -> Result<(Root, Root, Root, Root), String> {
+    fn biroots(&self) -> Result<(Root, Root, Root, Root), String> {
         let discriminant = self.discriminant();
         if discriminant >= 0.0 {
             let first_term = -self.b / 2.0 * self.a;
