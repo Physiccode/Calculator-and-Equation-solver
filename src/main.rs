@@ -1,9 +1,9 @@
 use std::error::Error;
 
 mod cubic_equation_handler; //Load the cubic equation handler folder
+mod quadratic_equation_handler;
 mod quartic_equation_handler;
 mod utils; //Load my utils folder
-mod quadratic_equation_handler;
 
 use algebra::*;
 use geometry::*;
@@ -26,11 +26,9 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         if exit.trim() == "exit" || exit.trim() == "0" {
             break;
-        }
-        else if exit.trim() == "1" {
+        } else if exit.trim() == "1" {
             println!("Mode:1 - [Fourth degree equation solver]");
-        }
-        else if exit.trim() == "2" {
+        } else if exit.trim() == "2" {
             println!("Mode:2-[Third degree equation solver]");
 
             println!("Enter the value of a:");
@@ -113,7 +111,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 }
             }
         } else if exit.trim() == "4" {
-            println!("Mode 4:system of equation solver")
+            println!("Mode 4:system of equation solver");
             println!("a_1 as in a1x:");
             let a_1: f64 = readvar().trim().parse::<f64>()?;
             println!("a_2 as in a2x:");
