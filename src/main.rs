@@ -5,16 +5,9 @@ mod quadratic_equation_handler;
 mod quartic_equation_handler;
 mod utils; //Load my utils folder
 
-use algebra::*;
-use geometry::*;
-use miscellaneous::*;
-use trig::*;
-use utils::{algebra, geometry, miscellaneous, trig}; //load the content inside my utils folder
-
-use cubic_equation_handler::{rootscubic, solver, transformer};
-use rootscubic::*;
-use solver::*;
-use transformer::*;
+use cubic_equation_handler::{rootscubic::*, solver::*, transformer::*};
+use quartic_equation_handler::{rootsquartic::*, solver::*, transformer::*};
+use utils::{algebra::*, geometry::*, miscellaneous::*, trig::*}; //load the content inside my utils folder
 
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Do you wish to break after each answer[yes/no]?:");
@@ -28,6 +21,35 @@ fn main() -> Result<(), Box<dyn Error>> {
             break;
         } else if exit.trim() == "1" {
             println!("Mode:1 - [Fourth degree equation solver]");
+            println!("Enter the value of a:");
+            let a: f64 = readvar().trim().parse::<f64>()?;
+            println!("Enter the value of b:");
+            let b: f64 = readvar().trim().parse::<f64>()?; //taking input
+            println!("Enter the value of c:");
+            let c: f64 = readvar().trim().parse::<f64>()?;
+            println!("Enter the value of d:");
+            let d: f64 = readvar().trim().parse::<f64>()?;
+            println!("Enter the value of e:");
+            let e: f64 = readvar().trim().parse::<f64>()?;
+            let eqn = Quartic { a, b, c, d, e };
+            let roots = eqn.roots()?;
+            let x1 = roots.x_1;
+            let x2 = roots.x_2;
+            let x3 = roots.x_3;
+            let x4 = roots.x_4;
+            println!(
+                "
+                Result:
+                1st root x={}
+                2nd root x={}
+                3rd root x={}
+                4th root x={}
+                ",
+                x1.extract(),
+                x2.extract(),
+                x3.extract(),
+                x4.extract()
+            );
         } else if exit.trim() == "2" {
             println!("Mode:2-[Third degree equation solver]");
 
@@ -95,8 +117,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                     break;
                 }
             } else if calcfrac.trim() == "no" {
-                let posroot = algebra::secdeg_posroot(a, b, &delta, false);
-                let negroot = algebra::secdeg_negroot(a, b, &delta, false);
+                let posroot = secdeg_posroot(a, b, &delta, false);
+                let negroot = secdeg_negroot(a, b, &delta, false);
                 println!(
                     "
                     Delta:{}
