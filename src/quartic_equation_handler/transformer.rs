@@ -1,4 +1,4 @@
-use crate::cubic_equation_handler::{self, transformer};
+use crate::cubic_equation_handler::transformer;
 use crate::quadratic_equation_handler::general;
 
 pub enum Equations {
@@ -54,14 +54,14 @@ pub trait DepressedFormulas {
 
 impl DepressedFormulas for NormalizedQuartic {
     fn p(&self) -> f64 {
-        let second_term = (3 * self.b.powi(2)) / 8.0;
+        let second_term = (3.0 * self.b.powi(2)) / 8.0;
         self.c - second_term
     }
 
     fn r(&self) -> f64 {
         let second_term = (self.b * self.d) / 4.0;
         let third_term = (self.b.powi(2) * self.c) / 16.0;
-        let fourth_term = (3 * self.b.powi(4)) / 256.0;
+        let fourth_term = (3.0 * self.b.powi(4)) / 256.0;
         self.e - second_term + third_term - fourth_term
     }
 

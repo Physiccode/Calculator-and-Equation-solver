@@ -12,12 +12,12 @@ pub struct Quadratic {
     pub c: f64,
 }
 
-pub trait Solve {
+pub trait SolveQuadratic {
     fn discriminant(&self) -> f64;
-    fn roots(&self) -> (Result<(Root, Root), String>);
+    fn roots(&self) -> Result<(Root, Root), String>;
 }
 
-impl Solve for Quadratic {
+impl SolveQuadratic for Quadratic {
     fn discriminant(&self) -> f64 {
         let second_term = -(4.0 * self.a * self.c);
         self.b.powi(2) + second_term
