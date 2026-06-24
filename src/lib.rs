@@ -2,8 +2,8 @@
 mod cubic_equation_handler;
 mod utils;
 
-use cubic_equation_handler::{roots, solver, transformer};
-use roots::*;
+use cubic_equation_handler::{rootscubic, solver, transformer};
+use rootscubic::*;
 use solver::*;
 use utils::{algebra, geometry, miscellaneous, trig};
 
@@ -33,7 +33,7 @@ mod tests {
             c: 0.0,
             d: 0.0,
         };
-        let root = roots::Root::Real(0.0).extract();
+        let root = rootscubic::Root::Real(0.0).extract();
         let (r1, r2, r3) = equation_1.roots();
 
         assert_eq!(

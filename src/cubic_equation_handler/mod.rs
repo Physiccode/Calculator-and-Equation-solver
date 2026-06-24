@@ -1,3 +1,3 @@
-pub mod transformer;
-pub mod roots;
+pub mod rootscubic;
 pub mod solver;
+pub mod transformer;

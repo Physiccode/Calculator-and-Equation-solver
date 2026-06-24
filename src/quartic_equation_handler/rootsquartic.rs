@@ -1,4 +1,4 @@
-use crate::cubic_equation_handler::roots::Root;
+use crate::cubic_equation_handler::rootscubic::Root;
 use crate::quadratic_equation_handler::general; //get the quadratic equation structure
 
 pub struct QuarticRoots {

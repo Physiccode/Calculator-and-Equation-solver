@@ -1,7 +1,7 @@
 use crate::cubic_equation_handler::{self, transformer};
 use crate::quadratic_equation_handler::general;
 
-enum Equations {
+pub enum Equations {
     Cubic(transformer::Cubiceqn),
     Biquadratic(general::BiquadraticDegree4),
 }

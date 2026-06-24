@@ -1,4 +1,4 @@
-use crate::cubic_equation_handler::roots::Root; //call real or complex roots enum
+use super::super::cubic_equation_handler::rootscubic::Root; //call real or complex roots enum
 use crate::utils::complexop::Operations;
 
 pub struct BiquadraticDegree4 {
@@ -64,58 +64,67 @@ impl SolveBiquadratic for BiquadraticDegree4 {
 
     fn biroots(&self) -> Result<(Root, Root, Root, Root), String> {
         let discriminant = self.discriminant();
+        let first_term = -self.b / 2.0 * self.a;
+        if self.a == 0.0 {
+            return Err("Value of a can't be 0".to_string());
+        }
+
         if discriminant >= 0.0 {
-            let first_term = -self.b / 2.0 * self.a;
             let sum = discriminant.sqrt() / 2.0 * self.a;
             let r_1_squared = first_term + sum;
             let r_2_squared = first_term - sum;
-
-            let r_1 = if r_1_squared > 0.0 {
-                Root::Real(r_1_squared.sqrt())}
-            else {
+            let r_1 = if r_1_squared >= 0.0 {
+                Root::Real(r_1_squared.sqrt())
+            } else {
                 Root::Complex {
                     re: 0.0,
                     im: r_1_squared.abs().sqrt(),
-                };
-
-            let r_2 = if r_1_squared > 0.0 { Root::Real(-r_1_squared.sqrt())} else {Root::Complex {
-                re: 0.0,
-                im: -r_1_squared.abs().sqrt(),
+                }
             };
 
-            let r_3 = if r_2_squared > 0.0 {Root::Real(r_2_squared.sqrt())} else {
+            let r_2 = if r_1_squared >= 0.0 {
+                Root::Real(-r_1_squared.sqrt())
+            } else {
+                Root::Complex {
+                    re: 0.0,
+                    im: -r_1_squared.abs().sqrt(),
+                }
+            };
+
+            let r_3 = if r_2_squared >= 0.0 {
+                Root::Real(r_2_squared.sqrt())
+            } else {
                 Root::Complex {
                     re: 0.0,
                     im: r_2_squared.abs().sqrt(),
-                };
-            let r_4 = if r_2_squared > 0.0 { Root::Real(-r_2_squared.sqrt())} else {Root::Complex {
-                re: 0.0,
-                im: -r_2_squared.abs().sqrt(),
+                }
             };
 
+            let r_4 = if r_2_squared >= 0.0 {
+                Root::Real(-r_2_squared.sqrt())
+            } else {
+                Root::Complex {
+                    re: 0.0,
+                    im: -r_2_squared.abs().sqrt(),
+                }
+            };
 
-                return Ok((r_1, r_2, r_3, r_4));
-
+            Ok((r_1, r_2, r_3, r_4))
         } else {
-            if self.a != 0.0 {
-                let real_part = -(self.b / 2.0 * self.a);
-                let imaginary_part = (discriminant.abs().sqrt()) / (2.0 * self.a); //this part is the coefficient of i
-                //now we have the squared roots,time to take the squareroot of them
-                let r_1_squared = Root::Complex {
-                    re: real_part,
-                    im: imaginary_part,
-                };
-                let r_2_squared = Root::Complex {
-                    re: real_part,
-                    im: -imaginary_part,
-                };
-                let (r_1, r_2) = r_1_squared.cmplxsqrt();
-                let (r_3, r_4) = r_2_squared.cmplxsqrt();
-                return Ok((r_1, r_2, r_3, r_4));
-            }
-            else {
-                Err("value of a can't be 0".to_string())
-            }
+            let r_1_squared = Root::Complex {
+                re: first_term,
+                im: discriminant.abs().sqrt() / (2.0 * self.a),
+            };
+
+            let r_2_squared = Root::Complex {
+                re: first_term,
+                im: -discriminant.abs().sqrt() / (2.0 * self.a),
+            };
+
+            let (r_1, r_2) = r_1_squared.cmplxsqrt();
+            let (r_3, r_4) = r_2_squared.cmplxsqrt();
+
+            Ok((r_1, r_2, r_3, r_4))
         }
     }
 }

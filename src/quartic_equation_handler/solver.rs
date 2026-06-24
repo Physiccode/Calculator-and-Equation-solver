@@ -1,11 +1,7 @@
-use crate::cubic_equation_handler::{roots::Root, solver::Solve, transformer::Cubiceqn};
-use crate::quadratic_equation_handler::{self, general::BiquadraticDegree4};
-use crate::quartic_equation_handler::{
-    self,
-    roots::{self, QuarticRoots},
-    solver,
-    transformer::{self, DepressedFormulas, Normalize},
-}; //self for callingroots
+use super::rootsquartic::QuarticRoots;
+use super::transformer::{Equations, Quartic};
+use crate::cubic_equation_handler::{rootscubic::Root, transformer::Cubiceqn}; //load complex roots support
+//self for callingroots
 
 pub trait SolveQuartic {
     fn roots(&self) -> QuarticRoots;
@@ -16,7 +12,7 @@ pub trait SolveQuartic {
     fn x4(&self) -> Root;
 }
 
-impl SolveQuartic for transformer::Quartic {
+impl SolveQuartic for Quartic {
     fn roots(&self) -> QuarticRoots {
         //normalize
         let q = self.q(); //initialize q
