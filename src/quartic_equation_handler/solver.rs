@@ -33,10 +33,11 @@ impl SolveQuartic for Quartic {
                 //step 2,look for a real root
                 let real_root = [z_1, z_2, z_3]
                     .into_iter()
-                    .find_map(|root| match root {
+                    .filter_map(|root| match root {
                         Root::Real(content) => Some(content),
                         Root::Complex { .. } => None,
                     })
+                    .max_by(|x, y| x.partial_cmp(y).unwrap_or(std::cmp::Ordering::Equal))
                     .ok_or_else(|| "Math error:cubic equation has no real root")?;
 
                 //step 3:get u and v to form the 2 auxilliary quadratics
