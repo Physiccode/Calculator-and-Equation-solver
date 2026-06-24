@@ -12,7 +12,7 @@ pub struct QuarticRoots {
 the roots in y and in x,the code bellow  will show how */
 
 pub fn get_u(z: &f64, p: &f64) -> f64 {
-    let first_term = (2.0 * z);
+    let first_term = 2.0 * z;
     return (first_term - p).sqrt();
 }
 

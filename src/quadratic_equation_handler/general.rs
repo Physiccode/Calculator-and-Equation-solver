@@ -68,13 +68,13 @@ impl SolveBiquadratic for BiquadraticDegree4 {
 
     fn biroots(&self) -> Result<(Root, Root, Root, Root), String> {
         let discriminant = self.discriminant();
-        let first_term = -self.b / 2.0 * self.a;
+        let first_term = -self.b / (2.0 * self.a);
         if self.a == 0.0 {
             return Err("Value of a can't be 0".to_string());
         }
 
         if discriminant >= 0.0 {
-            let sum = discriminant.sqrt() / 2.0 * self.a;
+            let sum = discriminant.sqrt() / (2.0 * self.a);
             let r_1_squared = first_term + sum;
             let r_2_squared = first_term - sum;
             let r_1 = if r_1_squared >= 0.0 {
