@@ -29,7 +29,10 @@ impl SolveQuartic for Quartic {
                 //if it is a cubic equation,then its the ferrari's cubic,we'll solve it the traditional way
                 //step 1:get the roots,lets call them z1,z2 and z3
                 let eqn = Cubiceqn { a, b, c, d };
-                let (z_1, z_2, z_3) = eqn.roots();
+                let depressed_cubic_roots = eqn.get_roots();
+                let z_1 = depressed_cubic_roots.y_1;
+                let z_2 = depressed_cubic_roots.y_2;
+                let z_3 = depressed_cubic_roots.y_3;
                 //step 2,look for a real root
                 let real_root = [z_1, z_2, z_3]
                     .into_iter()
