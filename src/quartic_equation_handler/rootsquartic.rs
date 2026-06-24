@@ -51,7 +51,7 @@ pub fn get_back_x(y: Root, b: &f64) -> Root {
         }
         Root::Complex { re, im } => {
             let imaginary = im;
-            let real = re - b / 4.0;
+            let real = re - (b / 4.0);
             let x = Root::Complex {
                 re: real,
                 im: imaginary,
