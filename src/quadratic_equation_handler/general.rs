@@ -38,7 +38,7 @@ impl SolveQuadratic for Quadratic {
         } else {
             if self.a != 0.0 {
                 let first_term = -self.b / 2.0 * self.a;
-                let sum = discriminant.abs().sqrt() / 2.0 * self.a;
+                let sum = discriminant.abs().sqrt() / (2.0 * self.a);
                 let r_1 = Root::Complex {
                     re: first_term,
                     im: sum,
