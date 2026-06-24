@@ -54,6 +54,7 @@ impl SolveQuartic for Quartic {
                 let x_2 = get_back_x(y_2, &b);
                 let x_3 = get_back_x(y_3, &b);
                 let x_4 = get_back_x(y_4, &b);
+                println!("DEBUG -> Raiz Real da Cúbica (z): {:?}", real_root);
                 Ok(QuarticRoots { x_1, x_2, x_3, x_4 })
             }
 
