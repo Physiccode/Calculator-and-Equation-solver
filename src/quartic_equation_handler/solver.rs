@@ -1,5 +1,6 @@
 use super::rootsquartic::QuarticRoots;
-use super::transformer::{Equations, Quartic};
+use super::rootsquartic::{get_back_x, get_u, get_v, quadratics};
+use super::transformer::{DepressedFormulas, Equations, Normalize, Quartic};
 use crate::cubic_equation_handler::{rootscubic::Root, transformer::Cubiceqn}; //load complex roots support
 //self for callingroots
 
@@ -14,10 +15,9 @@ pub trait SolveQuartic {
 
 impl SolveQuartic for Quartic {
     fn roots(&self) -> QuarticRoots {
-        //normalize
-        let q = self.q(); //initialize q
-        let p = self.p(); //initialize p
-        let normalized_quartic = self.normalize();
+        let normalized_quartic = self.normalize(); //normalize
+        let q = normalized_quartic.q(); //initialize q
+        let p = normalized_quartic.p(); //initialize p
         let b = &normalized_quartic.b;
         let ferraris_cubic_or_biquadratic = normalized_quartic.ferrarris_cubic_or_biquadratic();
         match ferraris_cubic_or_biquadratic {
@@ -40,20 +40,19 @@ impl SolveQuartic for Quartic {
                 }
 
                 //step 3:get u and v to form the 2 auxilliary quadratics
-                let u = roots::get_u(&real_root, &p);
-                let v = roots::get_v(&u, &q)?;
-                let (depressed_quadratic_1, depressed_quadratic_2) =
-                    roots::quadratics(&u, &real_root, &v);
+                let u = get_u(&real_root, &p);
+                let v = get_v(&u, &q)?;
+                let (depressed_quadratic_1, depressed_quadratic_2) = quadratics(&u, &real_root, &v);
 
                 //step 4:solve for each quadratic to get the depressed roots
                 let (y_1, y_2) = depressed_quadratic_1.roots()?;
                 let (y_3, y_4) = depressed_quadratic_2.roots()?;
 
                 //step 5:solve for the roots of the original equations
-                let x_1 = roots::get_back_x(y_1, &b);
-                let x_2 = roots::get_back_x(y_2, &b);
-                let x_3 = roots::get_back_x(y_3, &b);
-                let x_4 = roots::get_back_x(y_4, &b);
+                let x_1 = get_back_x(y_1, &b);
+                let x_2 = get_back_x(y_2, &b);
+                let x_3 = get_back_x(y_3, &b);
+                let x_4 = get_back_x(y_4, &b);
                 QuarticRoots { x_1, x_2, x_3, x_4 }
             }
 
@@ -62,10 +61,10 @@ impl SolveQuartic for Quartic {
                 let (y_1, y_2, y_3, y_4) = self.biroots();
 
                 //get back x:
-                let x_1 = roots::get_back_x(y_1, &b);
-                let x_2 = roots::get_back_x(y_2, &b);
-                let x_3 = roots::get_back_x(y_3, &b);
-                let x_4 = roots::get_back_x(y_4, &b);
+                let x_1 = get_back_x(y_1, &b);
+                let x_2 = get_back_x(y_2, &b);
+                let x_3 = get_back_x(y_3, &b);
+                let x_4 = get_back_x(y_4, &b);
                 QuarticRoots { x_1, x_2, x_3, x_4 }
             }
         }
