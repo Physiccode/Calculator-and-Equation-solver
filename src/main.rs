@@ -11,8 +11,8 @@ use miscellaneous::*;
 use trig::*;
 use utils::{algebra, geometry, miscellaneous, trig}; //load the content inside my utils folder
 
-use cubic_equation_handler::{roots, solver, transformer};
-use roots::*;
+use cubic_equation_handler::{rootscubic, solver, transformer};
+use rootscubic::*;
 use solver::*;
 use transformer::*;
 
