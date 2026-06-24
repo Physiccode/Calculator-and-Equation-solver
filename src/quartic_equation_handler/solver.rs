@@ -41,7 +41,7 @@ impl SolveQuartic for Quartic {
 
                 //step 3:get u and v to form the 2 auxilliary quadratics
                 let u = get_u(&real_root, &p);
-                let v = get_v(&u, &q)?;
+                let v = get_v(&q, &u)?;
                 let (depressed_quadratic_1, depressed_quadratic_2) = quadratics(&u, &real_root, &v);
 
                 //step 4:solve for each quadratic to get the depressed roots

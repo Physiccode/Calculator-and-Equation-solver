@@ -37,7 +37,7 @@ impl Normalize for Quartic {
             NormalizedQuartic {
                 b: self.b,
                 c: self.c,
-                d: self.c,
+                d: self.d,
                 e: self.e,
             }
         }
@@ -77,9 +77,9 @@ impl DepressedFormulas for NormalizedQuartic {
         let r = self.r();
         if q != 0.0 {
             //if the  depressed quartic equation isn't biquadratic
-            let degree_2_coefficient = -(p / 2.0);
-            let degree_1_coefficient = -r;
-            let degree_0_coefficient = (p * r / 2.0) - (q.powi(2) / 8.0);
+            let degree_2_coefficient = p;
+            let degree_1_coefficient = p.powi(2) - (4.0 * r);
+            let degree_0_coefficient = -(q.powi(2) / 8.0);
             Equations::Cubic(transformer::Cubiceqn {
                 a: 1.0,
                 b: degree_2_coefficient,
