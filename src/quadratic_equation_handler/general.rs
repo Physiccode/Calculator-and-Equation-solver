@@ -26,11 +26,15 @@ impl SolveQuadratic for Quadratic {
     fn roots(&self) -> (Result<(Root, Root), String>) {
         let discriminant = self.discriminant();
         if discriminant >= 0.0 {
-            let first_term = -self.b / 2.0 * self.a;
-            let sum = discriminant.sqrt() / 2.0 * self.a;
-            let r_1 = Root::Real(first_term + sum);
-            let r_2 = Root::Real(first_term - sum);
-            return Ok((r_1, r_2));
+            if self.a == 0.0 {
+                return Err("Value of a can't be zero".to_string());
+            } else {
+                let first_term = -self.b / (2.0 * self.a);
+                let sum = discriminant.sqrt() / (2.0 * self.a);
+                let r_1 = Root::Real(first_term + sum);
+                let r_2 = Root::Real(first_term - sum);
+                return Ok((r_1, r_2));
+            }
         } else {
             if self.a != 0.0 {
                 let first_term = -self.b / 2.0 * self.a;
