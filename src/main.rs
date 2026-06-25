@@ -33,10 +33,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             let e: f64 = readvar().trim().parse::<f64>()?;
             let eqn = Quartic { a, b, c, d, e };
             let roots = eqn.roots()?;
-            let x1 = roots.x_1;
-            let x2 = roots.x_2;
-            let x3 = roots.x_3;
-            let x4 = roots.x_4;
+            let x1 = roots.x_1.extract();
+            let x2 = roots.x_2.extract();
+            let x3 = roots.x_3.extract();
+            let x4 = roots.x_4.extract();
             println!(
                 "
                 Result:
