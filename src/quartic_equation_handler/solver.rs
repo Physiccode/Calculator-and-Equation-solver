@@ -2,7 +2,7 @@ use super::rootsquartic::QuarticRoots;
 use super::rootsquartic::{get_back_x, get_u, get_v, quadratics};
 use super::transformer::{DepressedFormulas, Equations, Normalize, Quartic};
 use crate::cubic_equation_handler::{
-    rootscubic::{Root, Roots},
+    rootscubic::{Original, Root, Roots},
     solver::Solve,
     transformer::{Coefficients, Cubiceqn, Transform},
 }; //load complex roots support
@@ -30,26 +30,38 @@ impl SolveQuartic for Quartic {
         let ferraris_cubic_or_biquadratic = normalized_quartic.ferraris_cubic_or_biquadratic();
         match ferraris_cubic_or_biquadratic {
             Equations::Cubic(Cubiceqn { a, b, c, d }) => {
+                println!("Type:Ferrari's cubic");
                 //if it is a cubic equation,then its the ferrari's cubic,we'll solve it the traditional way
                 //step 1:get the roots,lets call them z1,z2 and z3
                 let eqn = Cubiceqn { a, b, c, d };
-                let depressed_cubic_roots = eqn.normalize().depress().get_roots();
-                let z_1 = depressed_cubic_roots.y_1;
-                let z_2 = depressed_cubic_roots.y_2;
-                let z_3 = depressed_cubic_roots.y_3;
+                let (z_1, z_2, z_3) = eqn.roots();
                 //step 2,look for a real root
                 let real_root = [z_1, z_2, z_3]
                     .into_iter()
-                    .filter_map(|root| match root {
+                    .find_map(|root| match root {
                         Root::Real(content) => Some(content),
                         Root::Complex { .. } => None,
                     })
-                    .max_by(|x, y| x.partial_cmp(y).unwrap_or(std::cmp::Ordering::Equal))
                     .ok_or_else(|| "Math error:cubic equation has no real root")?;
 
                 //step 3:get u and v to form the 2 auxilliary quadratics
                 let u = get_u(&real_root, &p);
                 let v = get_v(&q, &u)?;
+                print!(
+                    "
+                    q={}
+                    v={}
+                    ",
+                    &q, &v
+                );
+                println!(
+                    "
+                    z={}
+                    u={}
+                    p={}
+                    ",
+                    &real_root, &u, &p,
+                );
                 let (depressed_quadratic_1, depressed_quadratic_2) = quadratics(&u, &real_root, &v);
 
                 //step 4:solve for each quadratic to get the depressed roots
@@ -61,14 +73,25 @@ impl SolveQuartic for Quartic {
                 let x_2 = get_back_x(y_2, &b);
                 let x_3 = get_back_x(y_3, &b);
                 let x_4 = get_back_x(y_4, &b);
-                println!("DEBUG -> Raiz Real da Cúbica (z): {:?}", real_root);
                 Ok(QuarticRoots { x_1, x_2, x_3, x_4 })
             }
 
             Equations::Biquadratic(BiquadraticDegree4 { a, b, c }) => {
+                println!("Type:Biquadratic(no ferrari)");
+                print!("q={} ", &q,);
+                println!("p={} ", &p);
                 //solve for the biquadratic depressed roots
                 let eqn = BiquadraticDegree4 { a, b, c };
                 let (y_1, y_2, y_3, y_4) = eqn.biroots()?;
+                println!(
+                    "
+                    y_1:{:?}
+                    y_2:{:?}
+                    y_3:{:?}
+                    y_4:{:?}
+                    ",
+                    &y_1, &y_2, &y_3, &y_4
+                );
 
                 //get back x:
                 let x_1 = get_back_x(y_1, &b);

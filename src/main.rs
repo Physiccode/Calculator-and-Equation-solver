@@ -40,16 +40,16 @@ fn main() -> Result<(), Box<dyn Error>> {
             println!(
                 "
                 Result:
-                1st root x={}
-                2nd root x={}
-                3rd root x={}
-                4th root x={}
+                1st root x={:?}
+                2nd root x={:?}
+                3rd root x={:?}
+                4th root x={:?}
                 ",
-                x1.extract(),
-                x2.extract(),
-                x3.extract(),
-                x4.extract()
+                x1, x2, x3, x4
             );
+            if brake.trim() == "yes" {
+                break;
+            }
         } else if exit.trim() == "2" {
             println!("Mode:2-[Third degree equation solver]");
 
@@ -86,6 +86,9 @@ fn main() -> Result<(), Box<dyn Error>> {
                 discriminant,
                 angle
             );
+            if brake.trim() == "yes" {
+                break;
+            }
         } else if exit.trim() == "3" {
             println!("Mode:3-[Second degree equation solver]");
 

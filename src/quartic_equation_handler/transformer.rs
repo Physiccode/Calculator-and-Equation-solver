@@ -77,9 +77,9 @@ impl DepressedFormulas for NormalizedQuartic {
         let r = self.r();
         if q.abs() > 1e-9 {
             //if the  depressed quartic equation isn't biquadratic
-            let degree_2_coefficient = -(p / 2.0);
-            let degree_1_coefficient = -r;
-            let degree_0_coefficient = ((4.0 * p * r) - q.powi(2)) / 8.0;
+            let degree_2_coefficient = p;
+            let degree_1_coefficient = (p.powi(2) - (4.0 * r)) / 4.0;
+            let degree_0_coefficient = -(q.powi(2)) / 8.0;
             Equations::Cubic(transformer::Cubiceqn {
                 a: 1.0,
                 b: degree_2_coefficient,

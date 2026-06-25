@@ -37,7 +37,7 @@ impl SolveQuadratic for Quadratic {
             }
         } else {
             if self.a != 0.0 {
-                let first_term = -self.b / 2.0 * self.a;
+                let first_term = -self.b / (2.0 * self.a);
                 let sum = discriminant.abs().sqrt() / (2.0 * self.a);
                 let r_1 = Root::Complex {
                     re: first_term,
@@ -127,6 +127,15 @@ impl SolveBiquadratic for BiquadraticDegree4 {
 
             let (r_1, r_2) = r_1_squared.cmplxsqrt();
             let (r_3, r_4) = r_2_squared.cmplxsqrt();
+            println!(
+                "
+                r_1:={:?}
+                r_2={:?}
+                r_3={:?}
+                r_4={:?}
+                ",
+                &r_1, &r_2, &r_3, &r_4
+            );
 
             Ok((r_1, r_2, r_3, r_4))
         }
