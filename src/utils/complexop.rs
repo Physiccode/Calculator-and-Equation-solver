@@ -9,13 +9,19 @@ impl Operations for Root {
         // let the square root of a complex number be x+yi,then:
         match self {
             Root::Complex { re, im } => {
-                let a = re;
-                let b = im;
-                let x = ((a + (a.powi(2) + b.powi(2)).sqrt()) / 2.0).sqrt();
-                let y = ((-a + (a.powi(2) + b.powi(2)).sqrt()) / 2.0).sqrt();
+                let r = (re.powi(2) + im.powi(2)).sqrt();
+                let real = ((r + re) / 2.0).sqrt();
+                let imaginary = ((r - re) / 2.0).sqrt();
+                let imaginary = if *im < 0.0 { -imaginary } else { imaginary };
 
-                let firstsolution = Root::Complex { re: x, im: y };
-                let secondsolution = Root::Complex { re: -x, im: -y };
+                let firstsolution = Root::Complex {
+                    re: real,
+                    im: imaginary,
+                };
+                let secondsolution = Root::Complex {
+                    re: -real,
+                    im: -imaginary,
+                };
 
                 return (firstsolution, secondsolution);
             }

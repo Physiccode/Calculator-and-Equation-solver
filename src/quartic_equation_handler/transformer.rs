@@ -75,7 +75,7 @@ impl DepressedFormulas for NormalizedQuartic {
         let p = self.p();
         let q = self.q();
         let r = self.r();
-        if q.abs() > 1e-9 {
+        if self.b > 1e-9 || self.d > 1e-9 {
             //if the  depressed quartic equation isn't biquadratic
             let degree_2_coefficient = p;
             let degree_1_coefficient = (p.powi(2) - (4.0 * r)) / 4.0;

@@ -5,7 +5,7 @@ pub fn print_modes() {
         "
         Select the desired mode:
         0  - exit
-        1  - Fourth degree equation solver [included complex roots]
+        1  - Fourth degree equation solver [included complex roots(inconsistent)]
         2  - Third degree equation solver  [included complex roots]
         3  - Second degree equation solver [included complex roots]
         4  - System of equations solver
